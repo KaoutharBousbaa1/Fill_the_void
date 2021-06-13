@@ -1,5 +1,5 @@
 # Fill_the_void
-In this project, I have given a set of Tetrominoes, and I have to find a way to assemble them in the smallest possible square. Here is a glance about the way I solving this problem using C language.\
+In this project, I have given a set of Tetrominoes, and I have to find a way to assemble them in the smallest possible square. Here is a glance about the way I am solving this problem using C language.\
 
 1) - Validating the input :
 - Moving the Tetrimino to the top-most left-most positions to find the suitable solution
