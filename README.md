@@ -19,20 +19,20 @@ Then I will store the arrays into a linked a list
 - In our problem it’s kind of easy to express the problem recursively
 I’m going to give an example for this:
 Say we have two pieces:
-                              . . . .                                      
-                              . # # .
-                              . # # .
-                              . . . .
+                              . . . .\                                     
+                              . # # .\
+                              . # # .\
+                              . . . .\
                               ----LINE----
-                              . . . .
-                              # # # .
-                              . . . #
-                              . . . .
+                              . . . .\
+                              # # # .\
+                              . . . #\
+                              . . . .\
 When my program first started, the first piece is filled in the top left like this:
-                              A A . .
-                              A A . .
-                              . . . .
-                              . . . .
+                              A A . .\
+                              A A . .\
+                              . . . .\
+                              . . . .\
 Still won’t fit? So I will keep shifting the piece through each possible space(left, right, up, down) on the 4*4 square till it will fit.
 - The keys to backtracking here is the choice I make, which is shifting the first Tetriminoe, once I express that I recurse in that decision, if the decision doesn’t work I come back and I undo it and make another choice, we explore, we undo, we made another choice.
 
