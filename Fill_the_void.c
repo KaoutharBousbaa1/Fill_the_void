@@ -7,7 +7,7 @@
 #define _GNU_SOURCE
 
 //create a new node
-t_tet* create(int data)
+t_tet* create(char data)
 {
     t_tet* new_node = (t_tet*)malloc(sizeof(t_tet));
     if(new_node = NULL)  
@@ -21,7 +21,7 @@ t_tet* create(int data)
 }
 
 //Push an element into the stack
-t_node* push(t_node* head, int data)
+t_node* push(t_node* head, char data)
 {
     t_node* new_node = (t_node*)malloc(sizeof(new_node));
     if(new_node == NULL)
