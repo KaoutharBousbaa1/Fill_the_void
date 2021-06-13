@@ -25,9 +25,7 @@ t_node* push(t_node* head, int data)
 {
     t_node* new_node = (t_node*)malloc(sizeof(new_node));
     if(new_node == NULL)
-    {
         exit(0);
-    }
     new_node->data = data;
     new_node->next = head;
     head = new_node;
@@ -63,9 +61,7 @@ t_tet* create_list(char block)
 {
     t_tet* head = NULL;
     for(int i = 0; i < 16; i++)
-    {
         head = append(head, block);
-    }
     return head;
 }
 
@@ -97,9 +93,7 @@ void moving_Tetrimino(char array[])
 
     }
     for(int i = 0; i < sizeof(*array); i++)
-    {
         array[i] = array[i-k-1];
-    }
 }
 
 //Counting the number of tetriminos
@@ -174,7 +168,8 @@ void read_file()
     fp = fopen("Tetriminos.txt", "r");
     if (fp == NULL)
         exit(EXIT_FAILURE);
-    while ((read = getline(&line, &len, fp)) != -1) {
+    while ((read = getline(&line, &len, fp)) != -1) 
+    {
         printf("Retrieved line of length %zu:\n", read);
         printf("%s", line);
     }
@@ -299,9 +294,7 @@ t_node* solve(char array_1[], char array_2[], int k)
 void display(t_node* stack)
 {
     if(stack == NULL)
-    {
         return;
-    }
     t_node* temp = stack;
     printf("Stack : ");
     while(temp != NULL)
