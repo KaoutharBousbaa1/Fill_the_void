@@ -5,8 +5,8 @@ In this project, I have given a set of Tetrominoes, and I have to find a way to 
 - Moving the Tetrimino to the top-most left-most positions to find the suitable solution
 - Checking every line to check if there is only “.” and “#” character
 - If the number of '#' is greater than 4 exit
-- Check if there are missed lines between the Tetriminos
-- Checking every piece against a list of a valid Tetriminos
+- Check if there are missed lines between the Tetriminoes
+- Checking every piece against a list of a valid Tetriminoes
 - Each array stores a total of 16 parameters (whether a “#” or “.” 
 - Before storing the valid block into my linked list, first I shift the block to the top-left corner
 - If the list doesn’t match any of the given (valid) lists, then return an error and quit simply
