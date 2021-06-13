@@ -293,6 +293,7 @@ t_node* solve(char array_1[], char array_2[], int k)
 //Print solution
 void display(t_node* stack)
 {
+    int k = 0;
     if(stack == NULL)
         return;
     t_node* temp = stack;
@@ -300,12 +301,12 @@ void display(t_node* stack)
     while(temp != NULL)
     {
         printf("%d", temp->data);
+        k++;
+        if(k > 4)
+        {
+            printf("\n");
+            k = 0;
+        }
         temp = temp->next;
     }
-}
-
-int main()
-{
-
-    return 0;
 }
