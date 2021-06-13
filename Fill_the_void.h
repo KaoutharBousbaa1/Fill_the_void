@@ -12,7 +12,7 @@ typedef struct s_tet t_tet;
 
 struct s_node
 {
-    int data;
+    char data;
     struct s_node* next;
 };
 typedef struct s_node t_node;
