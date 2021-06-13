@@ -7,7 +7,7 @@ In this project, I have given a set of Tetrominoes, and I have to find a way to 
 - If the number of '#' is greater than 4 exit
 - Check if there are missed lines between the Tetriminoes
 - Checking every piece against a list of a valid Tetriminoes
-- Each array stores a total of 16 parameters (whether a “#” or “.” 
+- Each array stores a total of 16 parameters (whether a “#” or “.” )
 - Before storing the valid block into my linked list, first I shift the block to the top-left corner
 - If the list doesn’t match any of the given (valid) lists, then return an error and quit simply
 - If we validated the Tetrominoes, we can then put them into a linked list\
