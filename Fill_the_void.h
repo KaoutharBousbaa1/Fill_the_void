@@ -2,6 +2,7 @@
 #define Fill_the_void
 
 int const array_size = 16;
+
 struct s_tet
 {
     char data;
