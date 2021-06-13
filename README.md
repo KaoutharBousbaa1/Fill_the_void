@@ -35,7 +35,7 @@ When my program first started, the first piece is filled in the top left like th
                               . . . .\
 Still won’t fit? So I will keep shifting the piece through each possible space(left, right, up, down) on the square till it will fit.
 - The keys to backtracking here is the choice I make, which is shifting the first Tetriminoe, once I express that I recurse in that decision, if the decision doesn’t work I come back and I undo it and make another choice, we explore, we undo, we made another choice.
-
+- To figure out the efficient solution, we have to find the smallest square to start with, which is : starting size = number of Teteriminoes * 2
 
 
 
