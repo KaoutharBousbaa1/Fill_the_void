@@ -19,7 +19,7 @@ Then I will store the arrays into a linked a list\
 - In our problem it’s kind of easy to express the problem recursively
 I’m going to give an example for this:
 Say we have two pieces:\
-                              . . . .\                                     
+                              . . . .                                     
                               . # # .\
                               . # # .\
                               . . . .\
