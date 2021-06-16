@@ -2,7 +2,6 @@
 #define Fill_the_void
 
 int const array_size = 16;
-
 struct s_tet
 {
     char data;
@@ -17,26 +16,27 @@ struct s_node
 };
 typedef struct s_node t_node;
 
-t_node* push(t_node* head, int data);
-t_tet* create(int data);
+t_node* push(t_node* head, char data);
+t_tet* create(char data);
 int count(t_tet* head);
 t_tet* append(t_tet* head, char data);
 int count(t_tet* head);
 t_tet* create_list(char block);
-void listTo_array(t_tet* head);
-void moving_Tetrimino(char array[]);
+char* listTo_array(t_tet* head);
+void moving_Tetrimino(char *array);
 int counting_tetriminos(t_tet* tet);
 int counting_blocks(char *character);
 int check_char(char *character);
-_Bool compare_arrays(char array[]);
-int check_tetrimino(char array[]);
-void read_file();
-int assign_loc(char array[], int s, int j);
-t_node* assign_tet(t_node* stack, char array_1[], char array_2[], int i);
-t_node* recur_assign(char array_1[], char array_2[], int k);
-_Bool check_assign(char array_1[], char array_2[]);
-t_node* solve(char array_1[], char array_2[], int k);
+_Bool compare_arrays(char *array);
+int check_tetrimino(char *array);
+int assign_loc(char *array, int s, int j);
+t_node* assign_tet(t_node* stack, char *array_1, char *array_2, int i);
+t_node* recur_assign(char *array_1, char *array_2, int k);
+_Bool check_assign(char *array_1, char *array_2);
+t_node* solve(char *array_1, char *array_2, int k);
 void display(t_node* stack);
+char* readline(char *in);
+int check_line(char *ptr);
 
 # define I_1 (char[16]) {'#',0,0,0,'#',0,0,0,'#',0,0,0,'#',0,0,0}
 # define I_2 (char[16]) {'#','#','#','#',0,0,0,0,0,0,0,0,0,0,0,0}
