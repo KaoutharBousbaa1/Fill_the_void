@@ -19,6 +19,7 @@ t_tet* create(char data)
     new_node->next = NULL;
     return new_node;
 }
+
 //Push an element into the stack
 t_node* push(t_node* head, char data)
 {
@@ -32,6 +33,7 @@ t_node* push(t_node* head, char data)
     head = new_node;
     return head;
 }
+
 //Count the elements of the linked list
 int count(t_tet* head)
 {
@@ -44,6 +46,7 @@ int count(t_tet* head)
     }
     return c;
 }
+
 //Add a new node at the end of the linked list
 t_tet* append(t_tet* head, char data)
 {
@@ -65,6 +68,7 @@ t_tet* create_list(char block)
     }
     return head;
 }
+
 //Convert linked list to array
 char* listTo_array(t_tet* head)
 {
@@ -78,6 +82,7 @@ char* listTo_array(t_tet* head)
     }
     return arr;
 }
+
 //Moving the Tetrimino the to the top-most left position
 void moving_Tetrimino(char array[])
 {
@@ -95,6 +100,7 @@ void moving_Tetrimino(char array[])
         array[i] = array[i-k-1];
     }
 }
+
 int counting_tetriminos(t_tet *tet)
 {
     int k = 0;
@@ -108,6 +114,7 @@ int counting_tetriminos(t_tet *tet)
     k++;
     return k;
 }
+
 int counting_blocks(char *character)
 {
     int k = 0;
@@ -121,6 +128,7 @@ int counting_blocks(char *character)
     }
     return k;
 }
+
 int check_char(char *character)
 {
     if(!character)
@@ -133,6 +141,7 @@ int check_char(char *character)
     }
     return 1;
 }
+
 //Compare two arrays
 _Bool compare_arrays(char array[])
 {
@@ -144,12 +153,14 @@ _Bool compare_arrays(char array[])
         return true;
     }
 }
+
 int check_tetrimino(char array[])
 {
     if(compare_arrays(array) == 1)
         return 1;
     return 0;
 }
+
 //Find the assignment location
 int assign_loc(char array[], int s, int j)
 {
@@ -162,6 +173,7 @@ int assign_loc(char array[], int s, int j)
         i++;
     }
 }
+
 //A function to assign a block to an empty space
 t_node* assign_tet(t_node* stack, char array_1[], char array_2[], int i)
 {
@@ -174,6 +186,7 @@ t_node* assign_tet(t_node* stack, char array_1[], char array_2[], int i)
     stack = push(stack, '#');
     return stack;
 }
+
 //Recursive function to check if the assignment does work or not, if so return the solution
 t_node* recur_assign(char array_1[], char array_2[], int k)
 {
@@ -182,6 +195,7 @@ t_node* recur_assign(char array_1[], char array_2[], int k)
     stack = assign_tet(stack, array_1, array_2, k);
     return recur_assign(array_1, array_2, assign_loc(array_1, array_size, k));
 }
+
 //Check if the assignment is valid
 _Bool check_assign(char array_1[], char array_2[])
 {
@@ -205,6 +219,7 @@ _Bool check_assign(char array_1[], char array_2[])
     else
         return false;
 }
+
 //Create a function to shift a Tetrimino
 void shift_left(char array[])
 {
@@ -213,6 +228,7 @@ void shift_left(char array[])
     for(int i = 0; i < 16; i++)
         array[i-1] = array[i];
 }
+
 void shift_right(char array[])
 {
     if(array[3] == array[7] == array[11] == array[15] == '#')
@@ -220,6 +236,7 @@ void shift_right(char array[])
     for(int i = 0; i < 16; i++)
         array[i] = array[i+1];
 }
+
 void shift_up(char array[])
 {
     if(array[0] == array[1] == array[2] == array[3] == '#')
@@ -227,6 +244,7 @@ void shift_up(char array[])
     for(int i = 0; i < 16; i++)
         array[i] = array[i-4];
 }
+
 void shift_down(char array[])
 {
     if(array[12] == array[13] == array[14] == array[15] == '#')
@@ -234,6 +252,7 @@ void shift_down(char array[])
     for(int i = 0; i < 16; i++)
         array[i] = array[i+4];
 }
+
 //Return the solution
 t_node* solve(char array_1[], char array_2[], int k)
 {
@@ -253,6 +272,7 @@ t_node* solve(char array_1[], char array_2[], int k)
     }
     return stack;
 }
+
 //Print solution
 void display(t_node* stack)
 {
@@ -275,6 +295,7 @@ void display(t_node* stack)
         temp = temp->next;
     }
 }
+
 //Free list
 void liberer(t_tet* L)
 {
@@ -285,6 +306,7 @@ void liberer(t_tet* L)
         free(temp);
     }
 }
+
 //Read line
 char* readline(char *in) 
 {
@@ -298,6 +320,7 @@ char* readline(char *in)
     else 
         return 0;
 }
+
 //Check if it is an empty line
 int check_line(char* ptr)
 {
