@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "Fill_the_void.h"
-#define _GNU_SOURCE
+
 
 //create a new node
 t_tet* create(char data)
@@ -19,19 +19,19 @@ t_tet* create(char data)
     new_node->next = NULL;
     return new_node;
 }
-
 //Push an element into the stack
 t_node* push(t_node* head, char data)
 {
     t_node* new_node = (t_node*)malloc(sizeof(new_node));
     if(new_node == NULL)
+    {
         exit(0);
+    }
     new_node->data = data;
     new_node->next = head;
     head = new_node;
     return head;
 }
-
 //Count the elements of the linked list
 int count(t_tet* head)
 {
@@ -44,7 +44,6 @@ int count(t_tet* head)
     }
     return c;
 }
-
 //Add a new node at the end of the linked list
 t_tet* append(t_tet* head, char data)
 {
@@ -61,24 +60,24 @@ t_tet* create_list(char block)
 {
     t_tet* head = NULL;
     for(int i = 0; i < 16; i++)
+    {
         head = append(head, block);
+    }
     return head;
 }
-
 //Convert linked list to array
-void listTo_array(t_tet* head)
+char* listTo_array(t_tet* head)
 {
     int len = count(head);
-    int arr[len];
- 
+    char* arr = malloc(len * sizeof(char));
     int index = 0;
     t_tet* curr = head;
     while (curr != NULL) {
         arr[index++] = curr->data;
         curr = curr->next;
     }
+    return arr;
 }
-
 //Moving the Tetrimino the to the top-most left position
 void moving_Tetrimino(char array[])
 {
@@ -90,13 +89,12 @@ void moving_Tetrimino(char array[])
             k = i;
             break;
         }
-
     }
     for(int i = 0; i < sizeof(*array); i++)
+    {
         array[i] = array[i-k-1];
+    }
 }
-
-//Counting the number of tetriminos
 int counting_tetriminos(t_tet *tet)
 {
     int k = 0;
@@ -110,8 +108,6 @@ int counting_tetriminos(t_tet *tet)
     k++;
     return k;
 }
-
-//Counting blocks (#)
 int counting_blocks(char *character)
 {
     int k = 0;
@@ -125,7 +121,6 @@ int counting_blocks(char *character)
     }
     return k;
 }
-
 int check_char(char *character)
 {
     if(!character)
@@ -138,8 +133,7 @@ int check_char(char *character)
     }
     return 1;
 }
-
-//Comparing two arrays
+//Compare two arrays
 _Bool compare_arrays(char array[])
 {
     for(int i = 1; i < sizeof(*array); i++)
@@ -150,34 +144,12 @@ _Bool compare_arrays(char array[])
         return true;
     }
 }
-
 int check_tetrimino(char array[])
 {
     if(compare_arrays(array) == 1)
         return 1;
     return 0;
 }
-
-//Read file
-void read_file()
-{
-    FILE * fp;
-    char * line = NULL;
-    size_t len = 0;
-    ssize_t read;
-    fp = fopen("Tetriminos.txt", "r");
-    if (fp == NULL)
-        exit(EXIT_FAILURE);
-    while ((read = getline(&line, &len, fp)) != -1) 
-    {
-        printf("Retrieved line of length %zu:\n", read);
-        printf("%s", line);
-    }
-    fclose(fp);
-    if (line)
-        free(line);
-}
-
 //Find the assignment location
 int assign_loc(char array[], int s, int j)
 {
@@ -190,7 +162,6 @@ int assign_loc(char array[], int s, int j)
         i++;
     }
 }
-
 //A function to assign a block to an empty space
 t_node* assign_tet(t_node* stack, char array_1[], char array_2[], int i)
 {
@@ -203,7 +174,6 @@ t_node* assign_tet(t_node* stack, char array_1[], char array_2[], int i)
     stack = push(stack, '#');
     return stack;
 }
-
 //Recursive function to check if the assignment does work or not, if so return the solution
 t_node* recur_assign(char array_1[], char array_2[], int k)
 {
@@ -212,12 +182,11 @@ t_node* recur_assign(char array_1[], char array_2[], int k)
     stack = assign_tet(stack, array_1, array_2, k);
     return recur_assign(array_1, array_2, assign_loc(array_1, array_size, k));
 }
-
 //Check if the assignment is valid
 _Bool check_assign(char array_1[], char array_2[])
 {
     int j = 0;
-    char array[16];
+    char* array = malloc(16 * sizeof(char));
     while(j < array_size)
     {
         if(array_1[j] == '#')
@@ -236,7 +205,6 @@ _Bool check_assign(char array_1[], char array_2[])
     else
         return false;
 }
-
 //Create a function to shift a Tetrimino
 void shift_left(char array[])
 {
@@ -245,7 +213,6 @@ void shift_left(char array[])
     for(int i = 0; i < 16; i++)
         array[i-1] = array[i];
 }
-
 void shift_right(char array[])
 {
     if(array[3] == array[7] == array[11] == array[15] == '#')
@@ -253,7 +220,6 @@ void shift_right(char array[])
     for(int i = 0; i < 16; i++)
         array[i] = array[i+1];
 }
-
 void shift_up(char array[])
 {
     if(array[0] == array[1] == array[2] == array[3] == '#')
@@ -261,7 +227,6 @@ void shift_up(char array[])
     for(int i = 0; i < 16; i++)
         array[i] = array[i-4];
 }
-
 void shift_down(char array[])
 {
     if(array[12] == array[13] == array[14] == array[15] == '#')
@@ -269,7 +234,6 @@ void shift_down(char array[])
     for(int i = 0; i < 16; i++)
         array[i] = array[i+4];
 }
-
 //Return the solution
 t_node* solve(char array_1[], char array_2[], int k)
 {
@@ -289,18 +253,19 @@ t_node* solve(char array_1[], char array_2[], int k)
     }
     return stack;
 }
-
 //Print solution
 void display(t_node* stack)
 {
     int k = 0;
     if(stack == NULL)
+    {
         return;
+    }
     t_node* temp = stack;
     printf("Stack : ");
     while(temp != NULL)
     {
-        printf("%d", temp->data);
+        printf("%d  ", temp->data);
         k++;
         if(k > 4)
         {
@@ -309,4 +274,74 @@ void display(t_node* stack)
         }
         temp = temp->next;
     }
+}
+//Free list
+void liberer(t_tet* L)
+{
+    while(L != NULL)
+    {
+        t_tet* temp = L;
+        L = L->next;
+        free(temp);
+    }
+}
+//Read line
+char* readline(char *in) 
+{
+    char *cptr;
+    if (cptr = fgets(in, 10, stdin))
+    {
+    while(*cptr == ' ' || *cptr == '\t')
+       cptr++;
+    return cptr;
+    }    
+    else 
+        return 0;
+}
+//Check if it is an empty line
+int check_line(char* ptr)
+{
+    ptr = readline(ptr);
+    while(*ptr==' ' || *ptr=='\t' || *ptr=='\n' || *ptr=='\r')
+        ptr++;
+    if(*ptr=='\0')
+        return 1;
+    return 0;
+}
+
+int main (int argc, char **argv) 
+{ 
+    char* arr_1 = malloc(16 * sizeof(char));
+    char* arr_2 = malloc(16 * sizeof(char));
+    t_tet* list = NULL;
+    if (argc != 2)
+        printf("usage: %s is provided,filename is not provided", argv[0]); 
+    else  
+    { 
+        FILE *file = fopen(argv[1], "r"); 
+        if ( file == 0 ) 
+        { 
+            printf("Could not open file\n"); 
+        } 
+        else  
+        { 
+            char x; 
+            while((x = fgetc(file)) != EOF) 
+            {
+                printf("%c", x); 
+                list = create_list(x);
+                if(x == ' ');
+                {
+                    arr_1 = listTo_array(list);
+                    liberer(list);
+                }
+            }
+            list = create_list(x);
+            arr_2 = listTo_array(list);
+        } 
+    } 
+    moving_Tetrimino(arr_1);
+    moving_Tetrimino(arr_2);
+    t_node* sol = solve(arr_1, arr_2, 0);
+    display(sol);
 }
