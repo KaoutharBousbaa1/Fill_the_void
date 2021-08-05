@@ -19,7 +19,7 @@ In our problem it’s kind of easy to express the problem recursively I’m goin
 . # # .\
 . # # .\
 . . . .\
-----LINE----
+----LINE----\
 . . . .\
 . # # #\
 . . . #\
