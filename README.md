@@ -21,7 +21,7 @@ In our problem it’s kind of easy to express the problem recursively I’m goin
 . . . .\
 ----LINE----
 . . . .\
-# # # .\
+. # # #\
 . . . #\
 . . . .\
 When my program first started, the first piece is filled in the top left like this:\
