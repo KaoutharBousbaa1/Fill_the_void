@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 # include "Fill_the_void.h"
-# include "mylibrary.h"
+# include "lib.h"
 # define TETRI_SIZE 20
 
 
