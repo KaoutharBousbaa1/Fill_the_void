@@ -1,5 +1,5 @@
-# include "mylibrary.h"
-#include "Fill_the_void.h"
+# include "lib.h"
+# include "Fill_the_void.h"
 
 t_tet	*lstnew_tetri(const char *str, char fill)
 {
