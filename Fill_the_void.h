@@ -5,6 +5,7 @@ int const array_size = 16;
 struct s_tet
 {
     char data;
+    size_t	content_size;
     struct s_tet *next;
 };
 typedef struct s_tet t_tet;
@@ -15,14 +16,6 @@ struct s_node
     struct s_node* next;
 };
 typedef struct s_node t_node;
-
-struct		s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-};
-typedef struct s_list t_list;
 
 t_node*     push(t_node* head, char data);
 t_tet*      create(char data);
@@ -38,14 +31,18 @@ int         check_char(char *character);
 _Bool       compare_arrays(char *array);
 int         check_tetrimino(char *array);
 int         assign_loc(char *array, int s, int j);
-t_node*     assign_tet(t_node* stack, char *array_1, char *array_2, int i);
-t_node*     recur_assign(char *array_1, char *array_2, int k);
+t_node*     assign_tet(t_node* stack, t_tet* list, int i);
+t_node*     recur_assign(t_tet* list, int k);
 _Bool       check_assign(char *array_1, char *array_2);
-t_node*     solve(char *array_1, char *array_2, int k);
+t_node*     solve(t_tet* list, int k);
 void        display(t_node* stack);
-t_list*     get_tetriminoes_from_file(const char* filename);
 char*       readline(char *in);
 int         check_line(char *ptr);
+int	    validate_newlines(char* tetrimino_str, int* ends_in_newline);
+int	    check_tetrimino_count(int count);
+t_tet*      read_tetriminoes(int fd);
+t_tet*      get_tetriminoes_from_file(const char *filename);
+
 
 # define I_1 (char[16]) {'#',0,0,0,'#',0,0,0,'#',0,0,0,'#',0,0,0}
 # define I_2 (char[16]) {'#','#','#','#',0,0,0,0,0,0,0,0,0,0,0,0}
