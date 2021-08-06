@@ -1,9 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdbool.h>
-#include "Fill_the_void.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <stdbool.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+# include "Fill_the_void.h"
+# include "mylibrary.h"
+# define TETRI_SIZE 20
 
 
 //create a new node
@@ -175,12 +180,14 @@ int assign_loc(char array[], int s, int j)
 }
 
 //A function to assign a block to an empty space
-t_node* assign_tet(t_node* stack, char array_1[], char array_2[], int i)
+t_node* assign_tet(t_node* stack, t_tet* list, int i)
 {
     int j = 0;
     while(j != i)
     {
-        stack = push(stack, array_1[j]);
+        char* arr = listTo_array(list);
+        stack = push(stack, arr[j]);
+        list = list->next;
         j++;
     }
     stack = push(stack, '#');
@@ -188,12 +195,14 @@ t_node* assign_tet(t_node* stack, char array_1[], char array_2[], int i)
 }
 
 //Recursive function to check if the assignment does work or not, if so return the solution
-t_node* recur_assign(char array_1[], char array_2[], int k)
+t_node* recur_assign(t_tet* list, int k)
 {
-    k = assign_loc(array_1, array_size, 0);
+    char* arr = listTo_array(list);
+    list = list->next;
+    k = assign_loc(arr, array_size, 0);
     t_node* stack = NULL;
-    stack = assign_tet(stack, array_1, array_2, k);
-    return recur_assign(array_1, array_2, assign_loc(array_1, array_size, k));
+    stack = assign_tet(stack, list, k);
+    return recur_assign(list, assign_loc(arr, array_size, k));
 }
 
 //Check if the assignment is valid
@@ -254,21 +263,31 @@ void shift_down(char array[])
 }
 
 //Return the solution
-t_node* solve(char array_1[], char array_2[], int k)
+t_node* solve(t_tet* list, int k)
 {
     t_node* stack = NULL;
     if(check_assign)
-        stack = recur_assign(array_1, array_2, k);
+        stack = recur_assign(list, k);
     else
     {
-        shift_left(array_2);
-        stack = solve(array_1, array_2, k);
-        shift_right(array_2);
-        stack = solve(array_1, array_2, k);
-        shift_up(array_2);
-        stack = solve(array_1, array_2, k);
-        shift_down(array_2);
-        stack = solve(array_1, array_2, k);
+        char* arr = listTo_array(list);
+        shift_left(arr);
+        stack = solve(list, k);
+        
+        list = list->next;
+        arr = listTo_array(list);
+        shift_right(arr);
+        stack = solve(list, k);
+
+        list = list->next;
+        arr = listTo_array(list);
+        shift_up(arr);
+        stack = solve(list, k);
+
+        list = list->next;
+        arr = listTo_array(list);
+        shift_down(arr);
+        stack = solve(list->next, k);
     }
     return stack;
 }
@@ -331,7 +350,7 @@ int check_line(char* ptr)
         return 1;
     return 0;
 }
-int		validate_newlines(char *tetrimino_str, int *ends_in_newline)
+int		validate_newlines(char* tetrimino_str, int* ends_in_newline)
 {
 	int newline_placement;
 
@@ -351,11 +370,7 @@ int		validate_newlines(char *tetrimino_str, int *ends_in_newline)
 	return (0);
 }
 
-/*
-** Checks that the file passed in does not contain more than 26 or
-** less than 1 tetrimino.
-*/
-
+//Checks that the file passed in does not contain more than 26 or less than 1 tetrimino
 int		check_tetrimino_count(int count)
 {
 	if (count > 26 || count < 0)
@@ -363,18 +378,14 @@ int		check_tetrimino_count(int count)
 	return (0);
 }
 
-/*
-** Reads the tetriminoes from a file that has already been opened, adding them
-** to a linked list as it goes
-*/
-
-t_list	*read_tetriminoes(int fd)
+//Reads the tetriminoes from a file that has already been opened, adding them to a linked list as it goes
+t_tet* read_tetriminoes(int fd)
 {
-	char	*tetrimino_str;
+	char*   tetrimino_str;
 	int		ends_in_newline;
 	int		tetri_cnt;
-	t_list	*tail;
-	t_list	*head;
+	t_tet	*tail;
+	t_tet	*head;
 
 	tetrimino_str = ft_strnew(TETRI_SIZE + 1);
 	tetri_cnt = 0;
@@ -395,15 +406,11 @@ t_list	*read_tetriminoes(int fd)
 	return (head);
 }
 
-/*
-** Takes in a file, opens it, reads the file, gets the tetriminoes
-** and returns them in a linked list.
-*/
-
-t_list	*get_tetriminoes_from_file(const char *filename)
+//Takes in a file, opens it, reads the file, gets the tetriminoes and returns them in a linked list.
+t_tet* get_tetriminoes_from_file(const char *filename)
 {
 	int		fd;
-	t_list	*tetri_lst;
+	t_tet* tetri_lst;
 
 	if ((fd = open(filename, O_RDONLY)) == -1)
 		return (NULL);
@@ -433,23 +440,21 @@ int main (int argc, char **argv)
         } 
         else  
         { 
-            char x; 
-            while((x = fgetc(file)) != EOF) 
-            {
-                printf("%c", x); 
-                list = create_list(x);
-                if(x == ' ');
-                {
-                    arr_1 = listTo_array(list);
-                    liberer(list);
-                }
+            char* x; 
+            while((fgetc(file)) != EOF) 
+            { 
+                t_tet* list = get_tetriminoes_from_file(x);
             }
-            list = create_list(x);
-            arr_2 = listTo_array(list);
         } 
     } 
-    moving_Tetrimino(arr_1);
-    moving_Tetrimino(arr_2);
-    t_node* sol = solve(arr_1, arr_2, 0);
+    int i = 0;
+    while(i < sizeof(list))
+    {
+        char* arr = listTo_array(list);
+        moving_Tetrimino(arr);
+        i++;
+        list = list->next;
+    }
+    t_node* sol = solve(list, 0);
     display(sol);
 }
