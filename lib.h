@@ -1,5 +1,5 @@
-# ifndef mylibrary
-# define mylibrary
+# ifndef lib
+# define lib
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
